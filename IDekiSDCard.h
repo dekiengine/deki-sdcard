@@ -1,6 +1,6 @@
 #pragma once
 
-#include "providers/IDekiModule.h"
+#include "providers/IDekiPackage.h"
 #include "providers/IDekiFileSystem.h"
 
 /**
@@ -25,15 +25,15 @@ enum class SDCardMode : uint8_t
 };
 
 /**
- * @brief Abstract interface for SD card modules
+ * @brief Abstract interface for SD card packages
  *
- * Extends IDekiModule with SD card-specific functionality.
+ * Extends IDekiPackage with SD card-specific functionality.
  * Provides filesystem access via IDekiFileSystem interface.
  */
-class IDekiSDCard : public IDekiModule
+class IDekiSDCard : public IDekiPackage
 {
 public:
-    const char* GetModuleCategory() const override { return "storage"; }
+    const char* GetPackageCategory() const override { return "storage"; }
 
     virtual bool Mount() = 0;
     virtual void Unmount() = 0;

@@ -13,7 +13,7 @@
  * initialized when the prefab loads.
  *
  * The actual SD card implementation is provided by whichever platform
- * integration module is loaded; it registers itself via DekiSDCard::SetFactory().
+ * integration package is loaded; it registers itself via DekiSDCard::SetFactory().
  *
  * Once mounted, all asset loading will automatically use the SD card
  * via the DekiFileSystem with the S:/ prefix.
@@ -96,7 +96,7 @@ public:
     void Unmount();
     bool IsMounted() const { return m_Mounted; }
 
-    static IDekiSDCard* GetSDCardModule();
+    static IDekiSDCard* GetSDCardPackage();
 
 private:
     bool m_Mounted = false;

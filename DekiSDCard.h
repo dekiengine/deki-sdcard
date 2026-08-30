@@ -1,12 +1,12 @@
 #pragma once
 
 #include "IDekiSDCard.h"
-#include "DekiSDCardModule.h"
+#include "DekiSDCardPackage.h"
 
 /**
  * @brief SD Card Provider for injectable platform-specific SD card implementations
  *
- * A platform integration module registers a factory via SetFactory() at boot.
+ * A platform integration package registers a factory via SetFactory() at boot.
  * SDCardComponent calls Create() to obtain a fresh IDekiSDCard instance
  * without knowing the concrete type.
  */

@@ -2,7 +2,7 @@
 #include "DekiSDCard.h"
 #include "providers/DekiFileSystem.h"
 #include "IDekiSDCard.h"
-#include "ModuleConfig.h"
+#include "PackageConfig.h"
 #include "assets/AssetManager.h"
 #include "assets/AssetLookupTable.h"
 #include "assets/AssetPackReader.h"
@@ -11,7 +11,7 @@
 #include "PrefabSystem.h"
 
 // Static SD card instance
-static IDekiSDCard* s_SDCardModule = nullptr;
+static IDekiSDCard* s_SDCardPackage = nullptr;
 
 SDCardComponent::SDCardComponent()
 {
@@ -45,18 +45,18 @@ bool SDCardComponent::Mount()
     if (m_Mounted)
         return true;
 
-    if (!s_SDCardModule)
+    if (!s_SDCardPackage)
     {
-        s_SDCardModule = DekiSDCard::Create();
-        if (!s_SDCardModule)
+        s_SDCardPackage = DekiSDCard::Create();
+        if (!s_SDCardPackage)
         {
             DEKI_LOG_ERROR("SDCardComponent: No SD card backend registered");
             return false;
         }
     }
 
-    ModuleConfig config;
-    config.moduleId = "sd_card";
+    PackageConfig config;
+    config.packageId = "sd_card";
     config.enabled = true;
     config.settings["auto_mount"] = "false";
 
@@ -92,21 +92,21 @@ bool SDCardComponent::Mount()
         config.settings["spi_mhz"] = std::to_string(spi_mhz);
     }
 
-    s_SDCardModule->Configure(config);
+    s_SDCardPackage->Configure(config);
 
-    if (!s_SDCardModule->Initialize())
+    if (!s_SDCardPackage->Initialize())
     {
         DEKI_LOG_ERROR("SDCardComponent: Failed to initialize SD card backend");
         return false;
     }
 
-    if (!s_SDCardModule->Mount())
+    if (!s_SDCardPackage->Mount())
     {
         DEKI_LOG_ERROR("SDCardComponent: Failed to mount SD card");
         return false;
     }
 
-    IDekiFileSystem* sdFs = s_SDCardModule->GetFileSystem();
+    IDekiFileSystem* sdFs = s_SDCardPackage->GetFileSystem();
     if (sdFs)
     {
         DekiFileSystem::RegisterFileSystem("S:/", sdFs);
@@ -129,18 +129,18 @@ void SDCardComponent::Unmount()
 
     DekiFileSystem::UnregisterFileSystem("S:/");
 
-    if (s_SDCardModule)
+    if (s_SDCardPackage)
     {
-        s_SDCardModule->Unmount();
-        s_SDCardModule->Shutdown();
+        s_SDCardPackage->Unmount();
+        s_SDCardPackage->Shutdown();
     }
 
     m_Mounted = false;
 }
 
-IDekiSDCard* SDCardComponent::GetSDCardModule()
+IDekiSDCard* SDCardComponent::GetSDCardPackage()
 {
-    return s_SDCardModule;
+    return s_SDCardPackage;
 }
 
 void SDCardComponent::LoadAssetLookupTable()
