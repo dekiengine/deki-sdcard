@@ -8,7 +8,7 @@
 #include "assets/AssetPackReader.h"
 #include "DekiLogSystem.h"
 #include "DekiEngine.h"
-#include "PrefabSystem.h"
+#include "SceneSystem.h"
 
 // Static SD card instance
 static IDekiSDCard* s_SDCardPackage = nullptr;
@@ -31,7 +31,7 @@ void SDCardComponent::Setup(SetupCallback onComplete)
 
     if (success && GetOwner())
     {
-        DekiEngine::GetInstance().GetPrefabSystem().MarkPersistent(GetOwner());
+        DekiEngine::GetInstance().GetSceneSystem().MarkPersistent(GetOwner());
     }
 
     if (onComplete)
