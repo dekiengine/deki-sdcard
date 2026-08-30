@@ -31,60 +31,60 @@ public:
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t mosi_pin = 23;
+    int32_t mosiPin = 23;
 
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t miso_pin = 19;
+    int32_t misoPin = 19;
 
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t cs_pin = 5;
+    int32_t csPin = 5;
 
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
     DEKI_RANGE(1, 40)
-    int32_t spi_mhz = 20;
+    int32_t spiMhz = 20;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
     DEKI_EXPORT
     DEKI_RANGE(1, 40)
-    int32_t sdmmc_mhz = 20;
+    int32_t sdmmcMhz = 20;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t cmd_pin = 15;
+    int32_t cmdPin = 15;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t d0_pin = 2;
+    int32_t d0Pin = 2;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_4BIT)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t d1_pin = 4;
+    int32_t d1Pin = 4;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_4BIT)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t d2_pin = 12;
+    int32_t d2Pin = 12;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_4BIT)
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t d3_pin = 13;
+    int32_t d3Pin = 13;
 
     DEKI_EXPORT
     DEKI_RANGE(0, 48)
-    int32_t clk_pin = 18;
+    int32_t clkPin = 18;
 
     DEKI_EXPORT
     DEKI_RANGE(-1, 48)
-    int32_t cd_pin = -1;
+    int32_t cdPin = -1;
 
     SDCardComponent();
     virtual ~SDCardComponent();

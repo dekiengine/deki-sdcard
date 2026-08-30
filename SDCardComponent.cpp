@@ -63,33 +63,33 @@ bool SDCardComponent::Mount()
     if (mode == SDCardMode::SDMMC_1BIT || mode == SDCardMode::SDMMC_4BIT)
     {
         config.settings["mode"] = (mode == SDCardMode::SDMMC_4BIT) ? "SDMMC_4BIT" : "SDMMC_1BIT";
-        config.settings["sdmmc_mhz"] = std::to_string(sdmmc_mhz);
-        config.pins["CLK"] = clk_pin;
-        config.pins["CMD"] = cmd_pin;
-        config.pins["D0"] = d0_pin;
+        config.settings["sdmmcMhz"] = std::to_string(sdmmcMhz);
+        config.pins["CLK"] = clkPin;
+        config.pins["CMD"] = cmdPin;
+        config.pins["D0"] = d0Pin;
         if (mode == SDCardMode::SDMMC_4BIT)
         {
-            config.pins["D1"] = d1_pin;
-            config.pins["D2"] = d2_pin;
-            config.pins["D3"] = d3_pin;
+            config.pins["D1"] = d1Pin;
+            config.pins["D2"] = d2Pin;
+            config.pins["D3"] = d3Pin;
         }
-        if (cd_pin >= 0)
+        if (cdPin >= 0)
         {
-            config.pins["CD"] = cd_pin;
+            config.pins["CD"] = cdPin;
         }
     }
     else
     {
         config.settings["mode"] = "SPI";
-        config.pins["MOSI"] = mosi_pin;
-        config.pins["MISO"] = miso_pin;
-        config.pins["CLK"] = clk_pin;
-        config.pins["CS"] = cs_pin;
-        if (cd_pin >= 0)
+        config.pins["MOSI"] = mosiPin;
+        config.pins["MISO"] = misoPin;
+        config.pins["CLK"] = clkPin;
+        config.pins["CS"] = csPin;
+        if (cdPin >= 0)
         {
-            config.pins["CD"] = cd_pin;
+            config.pins["CD"] = cdPin;
         }
-        config.settings["spi_mhz"] = std::to_string(spi_mhz);
+        config.settings["spiMhz"] = std::to_string(spiMhz);
     }
 
     s_SDCardPackage->Configure(config);
