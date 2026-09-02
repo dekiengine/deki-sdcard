@@ -1,3 +1,7 @@
+/**
+ * @file DekiSDCardPackage.cpp
+ * @brief Package entry point for deki-sdcard
+ */
 #include "DekiSDCardPackage.h"
 #include "interop/DekiPlugin.h"
 #include "DekiLogSystem.h"
