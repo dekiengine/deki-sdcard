@@ -4,7 +4,7 @@ SD card peripheral interface for the Deki Engine. Defines `IDekiSDCard`: mount a
 
 `SDCardComponent` lets a card be configured and mounted from the editor.
 
-Part of the [Deki Engine](https://github.com/ATeam-Dekiru/deki-engine) package ecosystem.
+Part of the [Deki Engine](https://github.com/dekiengine/deki-engine) package ecosystem.
 
 ## Installation
 
