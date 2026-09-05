@@ -16,12 +16,12 @@
  * integration package is loaded; it registers itself via DekiSDCard::SetFactory().
  *
  * Once mounted, all asset loading will automatically use the SD card
- * via the DekiFileSystem with the S:/ prefix.
+ * via the Deki::FileSystem with the S:/ prefix.
  */
-class SDCardComponent : public SetupComponent
+class SDCardComponent : public Deki::SetupComponent
 {
 public:
-    DEKI_COMPONENT(SDCardComponent, SetupComponent, "System", "3836a84e-5cec-4849-bcc7-b524ad0baa5d", "")
+    DEKI_COMPONENT(SDCardComponent, Deki::SetupComponent, "System", "3836a84e-5cec-4849-bcc7-b524ad0baa5d", "")
     DEKI_DESCRIPTION("Mounts an SD card at boot so assets can load from it.")
 
     /** @brief Interface mode: SPI or SDMMC 1-bit */

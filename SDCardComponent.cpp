@@ -31,7 +31,7 @@ void SDCardComponent::Setup(SetupCallback onComplete)
 
     if (success && GetOwner())
     {
-        DekiEngine::GetInstance().GetSceneSystem().MarkPersistent(GetOwner());
+        Deki::Engine::GetInstance().GetSceneSystem().MarkPersistent(GetOwner());
     }
 
     if (onComplete)
@@ -55,7 +55,7 @@ bool SDCardComponent::Mount()
         }
     }
 
-    PackageConfig config;
+    Deki::PackageConfig config;
     config.packageId = "sd_card";
     config.enabled = true;
     config.settings["auto_mount"] = "false";
@@ -106,11 +106,11 @@ bool SDCardComponent::Mount()
         return false;
     }
 
-    IDekiFileSystem* sdFs = s_SDCardPackage->GetFileSystem();
+    Deki::IFileSystem* sdFs = s_SDCardPackage->GetFileSystem();
     if (sdFs)
     {
-        DekiFileSystem::RegisterFileSystem("S:/", sdFs);
-        DekiFileSystem::SetDefaultFileSystem(sdFs);
+        Deki::FileSystem::RegisterFileSystem("S:/", sdFs);
+        Deki::FileSystem::SetDefaultFileSystem(sdFs);
     }
 
     m_Mounted = true;
@@ -127,7 +127,7 @@ void SDCardComponent::Unmount()
     if (!m_Mounted)
         return;
 
-    DekiFileSystem::UnregisterFileSystem("S:/");
+    Deki::FileSystem::UnregisterFileSystem("S:/");
 
     if (s_SDCardPackage)
     {
@@ -147,14 +147,14 @@ void SDCardComponent::LoadAssetLookupTable()
 {
     const char* tablePath = "S:/asset_table.bin";
 
-    IDekiFileSystem* fs = DekiFileSystem::GetFileSystemForPath(tablePath);
+    Deki::IFileSystem* fs = Deki::FileSystem::GetFileSystemForPath(tablePath);
     if (!fs)
     {
         DEKI_LOG_WARNING("SDCardComponent: No filesystem for asset table");
         return;
     }
 
-    auto handle = fs->OpenFile(tablePath, IDekiFileSystem::OpenMode::READ_BINARY);
+    auto handle = fs->OpenFile(tablePath, Deki::IFileSystem::OpenMode::READ_BINARY);
     if (!handle)
     {
         DEKI_LOG_WARNING("SDCardComponent: asset_table.bin not found at %s", tablePath);

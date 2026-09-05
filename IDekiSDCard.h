@@ -27,10 +27,10 @@ enum class SDCardMode : uint8_t
 /**
  * @brief Abstract interface for SD card packages
  *
- * Extends IDekiPackage with SD card-specific functionality.
- * Provides filesystem access via IDekiFileSystem interface.
+ * Extends Deki::IPackage with SD card-specific functionality.
+ * Provides filesystem access via Deki::IFileSystem interface.
  */
-class IDekiSDCard : public IDekiPackage
+class IDekiSDCard : public Deki::IPackage
 {
 public:
     const char* GetPackageCategory() const override { return "storage"; }
@@ -41,7 +41,7 @@ public:
     virtual bool IsCardInserted() const = 0;
     virtual uint64_t GetTotalBytes() const = 0;
     virtual uint64_t GetFreeBytes() const = 0;
-    virtual IDekiFileSystem* GetFileSystem() = 0;
+    virtual Deki::IFileSystem* GetFileSystem() = 0;
     virtual const char* GetMountPoint() const = 0;
     virtual SDCardMode GetMode() const = 0;
 

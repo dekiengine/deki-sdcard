@@ -9,7 +9,7 @@
 #ifdef DEKI_EDITOR
 extern void DekiSDCard_RegisterComponents();
 extern int  DekiSDCard_GetAutoComponentCount();
-extern const DekiComponentMeta* DekiSDCard_GetAutoComponentMeta(int index);
+extern const Deki::ComponentMeta* DekiSDCard_GetAutoComponentMeta(int index);
 #endif
 
 static bool s_SDCardRegistered = false;
@@ -42,13 +42,13 @@ DEKI_PLUGIN_API void DekiPlugin_Shutdown(void) { s_SDCardRegistered = false; }
 
 #ifdef DEKI_EDITOR
 DEKI_PLUGIN_API int  DekiPlugin_GetComponentCount(void) { return DekiSDCard_GetAutoComponentCount(); }
-DEKI_PLUGIN_API const DekiComponentMeta* DekiPlugin_GetComponentMeta(int index)
+DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
 {
     return DekiSDCard_GetAutoComponentMeta(index);
 }
 #else
 DEKI_PLUGIN_API int  DekiPlugin_GetComponentCount(void) { return 0; }
-DEKI_PLUGIN_API const DekiComponentMeta* DekiPlugin_GetComponentMeta(int) { return nullptr; }
+DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int) { return nullptr; }
 #endif
 
 DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
