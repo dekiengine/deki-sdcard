@@ -27,7 +27,7 @@ var NAVTREE =
   [ "deki-sdcard", "index.html", [
     [ "Components", "index.html#autotoc_md0", null ],
     [ "Component reference", "index.html#autotoc_md1", [
-      [ "SDCardComponent (SD Card Component)", "index.html#c-sdcardcomponent", null ]
+      [ "SDCardComponent", "index.html#c-sdcardcomponent", null ]
     ] ]
   ] ]
 ];
