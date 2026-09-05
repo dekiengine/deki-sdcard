@@ -1,7 +1,7 @@
 {
   "id": "deki-sdcard",
   "displayName": "SD Card",
-  "minEngine": "1.2.0",
+  "minEngine": "2.0.0",
   "buildDefine": "DEKI_PACKAGE_SDCARD",
   "requires": [],
   "features": [],
