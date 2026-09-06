@@ -1,0 +1,206 @@
+#include "SDCardComponent.h"
+#include "DekiSDCard.h"
+#include <deki/providers/FileSystem.h>
+#include "IDekiSDCard.h"
+#include <deki/PackageConfig.h>
+#include <deki/assets/AssetManager.h>
+#include <deki/assets/AssetLookupTable.h>
+#include <deki/assets/AssetPackReader.h>
+#include <deki/LogSystem.h>
+#include <deki/Engine.h>
+#include <deki/SceneSystem.h>
+
+// Static SD card instance
+static IDekiSDCard* s_SDCardPackage = nullptr;
+
+SDCardComponent::SDCardComponent()
+{
+}
+
+SDCardComponent::~SDCardComponent()
+{
+    if (m_Mounted)
+    {
+        Unmount();
+    }
+}
+
+void SDCardComponent::Setup(SetupCallback onComplete)
+{
+    bool success = Mount();
+
+    if (success && GetOwner())
+    {
+        Deki::Engine::GetInstance().GetSceneSystem().MarkPersistent(GetOwner());
+    }
+
+    if (onComplete)
+    {
+        onComplete(success);
+    }
+}
+
+bool SDCardComponent::Mount()
+{
+    if (m_Mounted)
+        return true;
+
+    if (!s_SDCardPackage)
+    {
+        s_SDCardPackage = DekiSDCard::Create();
+        if (!s_SDCardPackage)
+        {
+            DEKI_LOG_ERROR("SDCardComponent: No SD card backend registered");
+            return false;
+        }
+    }
+
+    Deki::PackageConfig config;
+    config.packageId = "sd_card";
+    config.enabled = true;
+    config.settings["auto_mount"] = "false";
+
+    if (mode == SDCardMode::SDMMC_1BIT || mode == SDCardMode::SDMMC_4BIT)
+    {
+        config.settings["mode"] = (mode == SDCardMode::SDMMC_4BIT) ? "SDMMC_4BIT" : "SDMMC_1BIT";
+        config.settings["sdmmcMhz"] = std::to_string(sdmmcMhz);
+        config.pins["CLK"] = clkPin;
+        config.pins["CMD"] = cmdPin;
+        config.pins["D0"] = d0Pin;
+        if (mode == SDCardMode::SDMMC_4BIT)
+        {
+            config.pins["D1"] = d1Pin;
+            config.pins["D2"] = d2Pin;
+            config.pins["D3"] = d3Pin;
+        }
+        if (cdPin >= 0)
+        {
+            config.pins["CD"] = cdPin;
+        }
+    }
+    else
+    {
+        config.settings["mode"] = "SPI";
+        config.pins["MOSI"] = mosiPin;
+        config.pins["MISO"] = misoPin;
+        config.pins["CLK"] = clkPin;
+        config.pins["CS"] = csPin;
+        if (cdPin >= 0)
+        {
+            config.pins["CD"] = cdPin;
+        }
+        config.settings["spiMhz"] = std::to_string(spiMhz);
+    }
+
+    s_SDCardPackage->Configure(config);
+
+    if (!s_SDCardPackage->Initialize())
+    {
+        DEKI_LOG_ERROR("SDCardComponent: Failed to initialize SD card backend");
+        return false;
+    }
+
+    if (!s_SDCardPackage->Mount())
+    {
+        DEKI_LOG_ERROR("SDCardComponent: Failed to mount SD card");
+        return false;
+    }
+
+    Deki::IFileSystem* sdFs = s_SDCardPackage->GetFileSystem();
+    if (sdFs)
+    {
+        Deki::FileSystem::RegisterFileSystem("S:/", sdFs);
+        Deki::FileSystem::SetDefaultFileSystem(sdFs);
+    }
+
+    m_Mounted = true;
+
+    Deki::AssetManager::Get()->SetCacheDirectory("S:/");
+
+    LoadAssetLookupTable();
+
+    return true;
+}
+
+void SDCardComponent::Unmount()
+{
+    if (!m_Mounted)
+        return;
+
+    Deki::FileSystem::UnregisterFileSystem("S:/");
+
+    if (s_SDCardPackage)
+    {
+        s_SDCardPackage->Unmount();
+        s_SDCardPackage->Shutdown();
+    }
+
+    m_Mounted = false;
+}
+
+IDekiSDCard* SDCardComponent::GetSDCardPackage()
+{
+    return s_SDCardPackage;
+}
+
+void SDCardComponent::LoadAssetLookupTable()
+{
+    const char* tablePath = "S:/asset_table.bin";
+
+    Deki::IFileSystem* fs = Deki::FileSystem::GetFileSystemForPath(tablePath);
+    if (!fs)
+    {
+        DEKI_LOG_WARNING("SDCardComponent: No filesystem for asset table");
+        return;
+    }
+
+    auto handle = fs->OpenFile(tablePath, Deki::IFileSystem::OpenMode::READ_BINARY);
+    if (!handle)
+    {
+        DEKI_LOG_WARNING("SDCardComponent: asset_table.bin not found at %s", tablePath);
+        return;
+    }
+
+    long size = fs->GetFileSize(handle);
+    if (size <= 0)
+    {
+        fs->CloseFile(handle);
+        DEKI_LOG_WARNING("SDCardComponent: asset_table.bin is empty");
+        return;
+    }
+
+    static uint8_t* s_AssetTableData = nullptr;
+    static size_t s_AssetTableSize = 0;
+
+    if (s_AssetTableData)
+    {
+        delete[] s_AssetTableData;
+    }
+
+    s_AssetTableSize = static_cast<size_t>(size);
+    s_AssetTableData = new uint8_t[s_AssetTableSize];
+
+    size_t bytesRead = fs->ReadFile(handle, s_AssetTableData, s_AssetTableSize);
+    fs->CloseFile(handle);
+
+    if (bytesRead != s_AssetTableSize)
+    {
+        DEKI_LOG_ERROR("SDCardComponent: Failed to read asset_table.bin (read %zu of %zu)",
+                       bytesRead, s_AssetTableSize);
+        delete[] s_AssetTableData;
+        s_AssetTableData = nullptr;
+        return;
+    }
+
+    if (Deki::AssetManager::Get()->LoadAssetLookupTable(s_AssetTableData, s_AssetTableSize))
+    {
+        DEKI_LOG_INTERNAL("SDCardComponent: Loaded asset_table.bin (%u entries)",
+                      Deki::AssetLookupTable::GetEntryCount());
+
+        Deki::AssetPackReader::Instance().LoadPackIndex("S:/pack_index.bin");
+    }
+    else
+    {
+        DEKI_LOG_ERROR("SDCardComponent: Failed to parse asset_table.bin");
+    }
+}
