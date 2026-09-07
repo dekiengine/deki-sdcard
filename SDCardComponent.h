@@ -18,11 +18,11 @@
  * Once mounted, all asset loading will automatically use the SD card
  * via the Deki::FileSystem with the S:/ prefix.
  */
+DEKI_CATEGORY("System")
+DEKI_DESCRIPTION("Mounts an SD card at boot so assets can load from it.")
 class SDCardComponent : public Deki::SetupComponent
 {
 public:
-    DEKI_COMPONENT(SDCardComponent, Deki::SetupComponent, "System", "3836a84e-5cec-4849-bcc7-b524ad0baa5d", "")
-    DEKI_DESCRIPTION("Mounts an SD card at boot so assets can load from it.")
 
     /** @brief Interface mode: SPI or SDMMC 1-bit */
     DEKI_EXPORT
@@ -104,4 +104,3 @@ private:
     void LoadAssetLookupTable();
 };
 
-#include "generated/SDCardComponent.gen.h"
