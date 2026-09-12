@@ -1,4 +1,5 @@
 #include "SDCardComponent.h"
+#include <deki/providers/Memory.h>
 #include "DekiSDCard.h"
 #include <deki/providers/FileSystem.h>
 #include "IDekiSDCard.h"
@@ -174,11 +175,21 @@ void SDCardComponent::LoadAssetLookupTable()
 
     if (s_AssetTableData)
     {
-        delete[] s_AssetTableData;
+        Deki::Memory::Free(s_AssetTableData);
     }
 
     s_AssetTableSize = static_cast<size_t>(size);
-    s_AssetTableData = new uint8_t[s_AssetTableSize];
+    s_AssetTableData = Deki::Memory::AllocateArray<uint8_t>(s_AssetTableSize,
+                                                           Deki::MemoryUse::Buffer,
+                                                           "SDCard::assetTable");
+    if (!s_AssetTableData)
+    {
+        DEKI_LOG_ERROR("SDCardComponent: no room for a %zu byte asset table; "
+                       "assets on the card cannot be found", s_AssetTableSize);
+        s_AssetTableSize = 0;
+        fs->CloseFile(handle);
+        return;
+    }
 
     size_t bytesRead = fs->ReadFile(handle, s_AssetTableData, s_AssetTableSize);
     fs->CloseFile(handle);
@@ -187,7 +198,7 @@ void SDCardComponent::LoadAssetLookupTable()
     {
         DEKI_LOG_ERROR("SDCardComponent: Failed to read asset_table.bin (read %zu of %zu)",
                        bytesRead, s_AssetTableSize);
-        delete[] s_AssetTableData;
+        Deki::Memory::Free(s_AssetTableData);
         s_AssetTableData = nullptr;
         return;
     }
