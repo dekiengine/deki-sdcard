@@ -180,7 +180,7 @@ void SDCardComponent::LoadAssetLookupTable()
 
     s_AssetTableSize = static_cast<size_t>(size);
     s_AssetTableData = Deki::Memory::AllocateArray<uint8_t>(s_AssetTableSize,
-                                                           Deki::Mem::External);
+                                                           Deki::External);
     if (!s_AssetTableData)
     {
         DEKI_LOG_ERROR("SDCardComponent: no room for a %zu byte asset table; "
