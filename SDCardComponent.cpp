@@ -180,7 +180,7 @@ void SDCardComponent::LoadAssetLookupTable()
 
     s_AssetTableSize = static_cast<size_t>(size);
     s_AssetTableData = Deki::Memory::AllocateArray<uint8_t>(s_AssetTableSize,
-                                                           Deki::MemoryUse::Buffer,
+                                                           Deki::MemoryUse::External,
                                                            "SDCard::assetTable");
     if (!s_AssetTableData)
     {
