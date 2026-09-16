@@ -3,6 +3,9 @@
 #include <deki/providers/IPackage.h>
 #include <deki/providers/IFileSystem.h>
 
+namespace DekiSdCard
+{
+
 /**
  * @brief SD card operational states
  */
@@ -51,3 +54,5 @@ public:
     virtual bool SetStorageMode(bool enabled) { (void)enabled; return false; }
     virtual bool IsStorageMode() const { return false; }
 };
+
+}  // namespace DekiSdCard

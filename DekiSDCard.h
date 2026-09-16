@@ -3,6 +3,9 @@
 #include "IDekiSDCard.h"
 #include "DekiSDCardPackage.h"
 
+namespace DekiSdCard
+{
+
 /**
  * @brief SD Card Provider for injectable platform-specific SD card implementations
  *
@@ -22,3 +25,5 @@ public:
 private:
     static Factory s_Factory;
 };
+
+}  // namespace DekiSdCard

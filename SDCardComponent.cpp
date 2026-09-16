@@ -11,6 +11,9 @@
 #include <deki/Engine.h>
 #include <deki/SceneSystem.h>
 
+namespace DekiSdCard
+{
+
 // Static SD card instance
 static IDekiSDCard* s_SDCardPackage = nullptr;
 
@@ -214,3 +217,5 @@ void SDCardComponent::LoadAssetLookupTable()
         DEKI_LOG_ERROR("SDCardComponent: Failed to parse asset_table.bin");
     }
 }
+
+}  // namespace DekiSdCard

@@ -1,6 +1,9 @@
 #include "DekiSDCard.h"
 #include <deki/LogSystem.h>
 
+namespace DekiSdCard
+{
+
 DekiSDCard::Factory DekiSDCard::s_Factory = nullptr;
 
 void DekiSDCard::SetFactory(Factory factory)
@@ -23,3 +26,5 @@ bool DekiSDCard::HasFactory()
 {
     return s_Factory != nullptr;
 }
+
+}  // namespace DekiSdCard
