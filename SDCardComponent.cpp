@@ -67,7 +67,7 @@ bool SDCardComponent::Mount()
     if (mode == SDCardMode::SDMMC_1BIT || mode == SDCardMode::SDMMC_4BIT)
     {
         config.settings["mode"] = (mode == SDCardMode::SDMMC_4BIT) ? "SDMMC_4BIT" : "SDMMC_1BIT";
-        config.settings["sdmmcMhz"] = std::to_string(sdmmcMhz);
+        config.settings["sdmmcHz"] = std::to_string(sdmmcHz);
         config.pins["CLK"] = clkPin;
         config.pins["CMD"] = cmdPin;
         config.pins["D0"] = d0Pin;
@@ -93,7 +93,7 @@ bool SDCardComponent::Mount()
         {
             config.pins["CD"] = cdPin;
         }
-        config.settings["spiMhz"] = std::to_string(spiMhz);
+        config.settings["spiHz"] = std::to_string(spiHz);
     }
 
     s_SDCardPackage->Configure(config);

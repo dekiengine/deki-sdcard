@@ -49,13 +49,15 @@ public:
 
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
+    DEKI_UNIT(Frequency)
     DEKI_RANGE(1, 40)
-    int32_t spiMhz = 20;
+    int32_t spiHz = 20000000;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
     DEKI_EXPORT
+    DEKI_UNIT(Frequency)
     DEKI_RANGE(1, 40)
-    int32_t sdmmcMhz = 20;
+    int32_t sdmmcHz = 20000000;
 
     DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
     DEKI_EXPORT
