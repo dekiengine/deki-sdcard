@@ -38,7 +38,7 @@ DEKI_SDCARD_API int DekiSDCard_EnsureRegistered(void)
 #endif
 }
 
-DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "DekiRendering::Deki SD Card Package"; }
+DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "Deki SD Card Package"; }
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
 {
 #ifdef DEKI_PACKAGE_VERSION
