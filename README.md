@@ -2,7 +2,7 @@
 
 Documentation: https://dekiengine.github.io/deki-sdcard/ (components and properties, generated from the code)
 
-SD card peripheral interface for the Deki Engine. Defines `IDekiSDCard`: mount and unmount, card presence and state, capacity reporting, mount point, and an `IDekiFileSystem` handle for the mounted volume. Optional mass-storage mode is exposed for backends that support it.
+SD card peripheral interface for the Deki Engine. Defines `IDekiSDCard`: mount and unmount, card presence and state, capacity reporting, mount point, and a `Deki::IFileSystem` handle for the mounted volume. Optional mass-storage mode is exposed for backends that support it.
 
 `SDCardComponent` lets a card be configured and mounted from the editor.
 
