@@ -30,8 +30,10 @@ var NAVTREE =
       [ "SDCardComponent", "index.html#c-sdcardcomponent", null ]
     ] ],
     [ "Changelog", "index.html#autotoc_md2", [
-      [ "0.15.0", "index.html#autotoc_md3", null ],
-      [ "Changed", "index.html#autotoc_md4", null ]
+      [ "0.16.0", "index.html#autotoc_md3", null ],
+      [ "Changed", "index.html#autotoc_md4", null ],
+      [ "0.15.0", "index.html#autotoc_md5", null ],
+      [ "Changed", "index.html#autotoc_md6", null ]
     ] ]
   ] ]
 ];
