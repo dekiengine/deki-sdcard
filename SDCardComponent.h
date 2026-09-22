@@ -105,6 +105,10 @@ public:
     DEKI_RANGE(-1, 48)
     int32_t cdPin = -1;
 
+    DEKI_EXPORT
+    DEKI_TOOLTIP("Stop the boot when no card mounts. Off, the boot carries on without one: the screen and controls come up, and the game's assets, which live on the card, do not. For a handheld with a card slot on the side.")
+    bool required = true;
+
     SDCardComponent();
     virtual ~SDCardComponent();
 

@@ -38,6 +38,14 @@ void SDCardComponent::Setup(SetupCallback onComplete)
         Deki::Engine::GetInstance().GetSceneSystem().MarkPersistent(GetOwner());
     }
 
+    // A failed step stops the boot. A board whose card is a slot on the side
+    // may prefer to come up without one.
+    if (!success && !required)
+    {
+        DEKI_LOG_WARNING("SDCardComponent: no card mounted; carrying on without one. Assets on S:/ will not load.");
+        success = true;
+    }
+
     if (onComplete)
     {
         onComplete(success);

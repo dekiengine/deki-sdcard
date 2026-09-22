@@ -8,6 +8,14 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Added
+- **`required`** on `SDCardComponent` (default on, as before). Off, a boot with
+  no card mounted carries on rather than stopping: the screen and controls
+  come up, and the assets on `S:/` do not load. For a handheld whose card is
+  a slot on the side.
+
 ## 0.16.0
 
 ### Changed
