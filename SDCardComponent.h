@@ -123,8 +123,6 @@ public:
 
 private:
     bool m_Mounted = false;
-
-    void LoadAssetLookupTable();
 };
 
 }  // namespace DekiSdCard

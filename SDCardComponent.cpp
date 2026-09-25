@@ -5,8 +5,8 @@
 #include "IDekiSDCard.h"
 #include <deki/PackageConfig.h>
 #include <deki/assets/AssetManager.h>
-#include <deki/assets/AssetLookupTable.h>
-#include <deki/assets/AssetPackReader.h>
+#include <deki/ProjectSettings.h>
+#include <deki/Storage.h>
 #include <deki/LogSystem.h>
 #include <deki/Engine.h>
 #include <deki/SceneSystem.h>
@@ -127,9 +127,10 @@ bool SDCardComponent::Mount()
 
     m_Mounted = true;
 
-    Deki::AssetManager::Get()->SetCacheDirectory("S:/");
-
-    LoadAssetLookupTable();
+    // A build that keeps its assets on the card finds them now; one that keeps
+    // them inside had them loaded at startup, and the card is just storage.
+    if (Deki::ProjectSettings::GetAssetStorage() == Deki::Storage::External)
+        Deki::AssetManager::Get()->LoadAssetRoot(Deki::Storage::AssetRoot(Deki::Storage::External));
 
     return true;
 }
@@ -153,77 +154,6 @@ void SDCardComponent::Unmount()
 IDekiSDCard* SDCardComponent::GetSDCardPackage()
 {
     return s_SDCardPackage;
-}
-
-void SDCardComponent::LoadAssetLookupTable()
-{
-    const char* tablePath = "S:/asset_table.bin";
-
-    Deki::IFileSystem* fs = Deki::FileSystem::GetFileSystemForPath(tablePath);
-    if (!fs)
-    {
-        DEKI_LOG_WARNING("SDCardComponent: No filesystem for asset table");
-        return;
-    }
-
-    auto handle = fs->OpenFile(tablePath, Deki::IFileSystem::OpenMode::READ_BINARY);
-    if (!handle)
-    {
-        DEKI_LOG_WARNING("SDCardComponent: asset_table.bin not found at %s", tablePath);
-        return;
-    }
-
-    long size = fs->GetFileSize(handle);
-    if (size <= 0)
-    {
-        fs->CloseFile(handle);
-        DEKI_LOG_WARNING("SDCardComponent: asset_table.bin is empty");
-        return;
-    }
-
-    static uint8_t* s_AssetTableData = nullptr;
-    static size_t s_AssetTableSize = 0;
-
-    if (s_AssetTableData)
-    {
-        Deki::Memory::Free(s_AssetTableData);
-    }
-
-    s_AssetTableSize = static_cast<size_t>(size);
-    s_AssetTableData = Deki::Memory::AllocateArray<uint8_t>(s_AssetTableSize,
-                                                           Deki::Memory::External);
-    if (!s_AssetTableData)
-    {
-        DEKI_LOG_ERROR("SDCardComponent: no room for a %zu byte asset table; "
-                       "assets on the card cannot be found", s_AssetTableSize);
-        s_AssetTableSize = 0;
-        fs->CloseFile(handle);
-        return;
-    }
-
-    size_t bytesRead = fs->ReadFile(handle, s_AssetTableData, s_AssetTableSize);
-    fs->CloseFile(handle);
-
-    if (bytesRead != s_AssetTableSize)
-    {
-        DEKI_LOG_ERROR("SDCardComponent: Failed to read asset_table.bin (read %zu of %zu)",
-                       bytesRead, s_AssetTableSize);
-        Deki::Memory::Free(s_AssetTableData);
-        s_AssetTableData = nullptr;
-        return;
-    }
-
-    if (Deki::AssetManager::Get()->LoadAssetLookupTable(s_AssetTableData, s_AssetTableSize))
-    {
-        DEKI_LOG_INTERNAL("SDCardComponent: Loaded asset_table.bin (%u entries)",
-                      Deki::AssetLookupTable::GetEntryCount());
-
-        Deki::AssetPackReader::Instance().LoadPackIndex("S:/pack_index.bin");
-    }
-    else
-    {
-        DEKI_LOG_ERROR("SDCardComponent: Failed to parse asset_table.bin");
-    }
 }
 
 }  // namespace DekiSdCard

@@ -10,6 +10,12 @@ alongside one that has them.
 
 ## Unreleased
 
+### Changed
+- The card holds the game's assets only when the build keeps them in
+  external storage (`ProjectSettings::GetAssetStorage()`); it then loads them
+  with `AssetManager::LoadAssetRoot("S:/")`. Otherwise it is plain storage and
+  the engine has already loaded the assets from internal storage.
+
 ### Added
 - **`required`** on `SDCardComponent` (default on, as before). Off, a boot with
   no card mounted carries on rather than stopping: the screen and controls
