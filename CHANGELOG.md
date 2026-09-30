@@ -8,9 +8,10 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
-## Unreleased
+## 0.17.0
 
 ### Changed
+- `minEngine` 0.17.0. Reflection ABI 20: the package must be rebuilt.
 - The card holds the game's assets only when the build keeps them in
   external storage (`ProjectSettings::GetAssetStorage()`); it then loads them
   with `AssetManager::LoadAssetRoot("S:/")`. Otherwise it is plain storage and
