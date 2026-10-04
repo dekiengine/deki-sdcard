@@ -14,7 +14,7 @@
 namespace DekiSdCard
 {
 
-// Static SD card instance
+// The mounted SD card driver.
 static IDekiSDCard* s_SDCardPackage = nullptr;
 
 SDCardComponent::SDCardComponent()
@@ -38,8 +38,8 @@ void SDCardComponent::Setup(SetupCallback onComplete)
         Deki::Engine::GetInstance().GetSceneSystem().MarkPersistent(GetOwner());
     }
 
-    // A failed step stops the boot. A board whose card is a slot on the side
-    // may prefer to come up without one.
+    // A failed step stops the boot, unless the card is not required (a board
+    // with a card slot may boot without a card).
     if (!success && !required)
     {
         DEKI_LOG_WARNING("SDCardComponent: no card mounted; carrying on without one. Assets on S:/ will not load.");
@@ -129,8 +129,9 @@ bool SDCardComponent::Mount()
 
     m_Mounted = true;
 
-    // A build that keeps its assets on the card finds them now; one that keeps
-    // them inside had them loaded at startup, and the card is just storage.
+    // A build that keeps its assets on the card finds them now. One that keeps
+    // them in internal storage loaded them at startup, and the card is only
+    // storage.
     if (Deki::ProjectSettings::GetAssetStorage() == Deki::Storage::External)
     {
         Deki::AssetManager::Get()->LoadAssetRoot(Deki::Storage::AssetRoot(Deki::Storage::External));

@@ -6,33 +6,25 @@
 namespace DekiSdCard
 {
 
-/**
- * @brief SD card operational states
- */
+/// SD card states.
 enum class SDCardState
 {
-    NotMounted,  // Card not mounted (may or may not be inserted)
-    Mounting,    // Mount operation in progress
-    Mounted,     // Card mounted and ready for file operations
-    Error        // Mount failed or card error
+    NotMounted,  // not mounted (a card may or may not be inserted)
+    Mounting,    // mounting
+    Mounted,     // mounted and ready for file operations
+    Error        // the mount failed, or the card reported an error
 };
 
-/**
- * @brief SD card interface mode
- */
+/// How the card is wired.
 enum class SDCardMode : uint8_t
 {
-    SPI = 0,        // SPI mode (most compatible, uses MOSI/MISO/CLK/CS)
+    SPI = 0,        // SPI (works on most boards; MOSI/MISO/CLK/CS)
     SDMMC1Bit = 1,  // 1-bit SD mode (faster than SPI)
     SDMMC4Bit = 2   // 4-bit SD mode (fastest, uses more pins)
 };
 
-/**
- * @brief Abstract interface for SD card packages
- *
- * Extends Deki::IPackage with SD card-specific functionality.
- * Provides filesystem access via Deki::IFileSystem interface.
- */
+/// An SD card driver: a Deki::IPackage that mounts the card and gives access
+/// to its files through Deki::IFileSystem.
 class IDekiSDCard : public Deki::IPackage
 {
 public:

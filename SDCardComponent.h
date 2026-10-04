@@ -8,26 +8,21 @@
 namespace DekiSdCard
 {
 
-/**
- * @brief Component to configure and initialize SD card at runtime
- *
- * Add this component to your prefab to enable SD card filesystem.
- * Set the GPIO pins for your board, and the SD card will be
- * initialized when the prefab loads.
- *
- * The actual SD card implementation is provided by whichever platform
- * integration package is loaded; it registers itself via DekiSDCard::SetFactory().
- *
- * Once mounted, all asset loading will automatically use the SD card
- * via the Deki::FileSystem with the S:/ prefix.
- */
+/// Sets up and mounts the SD card at boot. Add it to the boot scene and set
+/// the GPIO pins for your board.
+///
+/// The platform integration package that is loaded provides the SD card
+/// implementation, registered with DekiSDCard::SetFactory().
+///
+/// Once mounted, the card is reached through Deki::FileSystem with the S:/
+/// prefix.
 DEKI_CATEGORY("System")
 DEKI_DESCRIPTION("Mounts an SD card at boot so assets can load from it.")
 DEKI_FORMER_NAME("SDCardComponent")
 class SDCardComponent : public Deki::SetupComponent
 {
 public:
-    /** @brief Interface mode: SPI or SDMMC 1-bit */
+    /// Interface mode: SPI, or SDMMC 1-bit or 4-bit.
     DEKI_EXPORT
     DEKI_TOOLTIP("How the card is wired. SPI needs four pins and works on any board; SDMMC is faster but needs "
                  "dedicated pins, and 4-bit is faster than 1-bit.")

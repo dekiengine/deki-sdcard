@@ -6,13 +6,9 @@
 namespace DekiSdCard
 {
 
-/**
- * @brief SD Card Provider for injectable platform-specific SD card implementations
- *
- * A platform integration package registers a factory via SetFactory() at boot.
- * SDCardComponent calls Create() to obtain a fresh IDekiSDCard instance
- * without knowing the concrete type.
- */
+/// Makes the platform's SD card implementation. A platform integration package
+/// registers a factory with SetFactory() at boot; SDCardComponent calls
+/// Create() to get a new IDekiSDCard without knowing the concrete type.
 class DEKI_SDCARD_API DekiSDCard
 {
 public:
