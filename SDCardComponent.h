@@ -27,10 +27,10 @@ DEKI_FORMER_NAME("SDCardComponent")
 class SDCardComponent : public Deki::SetupComponent
 {
 public:
-
     /** @brief Interface mode: SPI or SDMMC 1-bit */
     DEKI_EXPORT
-    DEKI_TOOLTIP("How the card is wired. SPI needs four pins and works on any board; SDMMC is faster but needs dedicated pins, and 4-bit is faster than 1-bit.")
+    DEKI_TOOLTIP("How the card is wired. SPI needs four pins and works on any board; SDMMC is faster but needs "
+                 "dedicated pins, and 4-bit is faster than 1-bit.")
     SDCardMode mode = SDCardMode::SPI;
 
     DEKI_VISIBLE_WHEN(mode, SPI)
@@ -47,13 +47,15 @@ public:
 
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
-    DEKI_TOOLTIP("SPI mode: chip select. Held low while this card is being talked to, which is what lets other devices share the bus.")
+    DEKI_TOOLTIP("SPI mode: chip select. Held low while this card is being talked to, which is what lets other devices "
+                 "share the bus.")
     DEKI_RANGE(0, 48)
     int32_t csPin = 5;
 
     DEKI_VISIBLE_WHEN(mode, SPI)
     DEKI_EXPORT
-    DEKI_TOOLTIP("SPI clock speed. 20 MHz suits most cards and short wiring; a card that mounts but then reads badly usually wants a lower figure.")
+    DEKI_TOOLTIP("SPI clock speed. 20 MHz suits most cards and short wiring; a card that mounts but then reads badly "
+                 "usually wants a lower figure.")
     DEKI_UNIT(Frequency)
     DEKI_RANGE(1, 40)
     int32_t spiHz = 20000000;
@@ -101,12 +103,15 @@ public:
     int32_t clkPin = 18;
 
     DEKI_EXPORT
-    DEKI_TOOLTIP("Card-detect pin, if the socket has the switch for it. -1 when it does not, and the card is then assumed present.")
+    DEKI_TOOLTIP("Card-detect pin, if the socket has the switch for it. -1 when it does not, and the card is then "
+                 "assumed present.")
     DEKI_RANGE(-1, 48)
     int32_t cdPin = -1;
 
     DEKI_EXPORT
-    DEKI_TOOLTIP("Stop the boot when no card mounts. Off, the boot carries on without one: the screen and controls come up, and the game's assets, which live on the card, do not. For a handheld with a card slot on the side.")
+    DEKI_TOOLTIP(
+        "Stop the boot when no card mounts. Off, the boot carries on without one: the screen and controls come up, and "
+        "the game's assets, which live on the card, do not. For a handheld with a card slot on the side.")
     bool required = true;
 
     SDCardComponent();
@@ -126,4 +131,3 @@ private:
 };
 
 }  // namespace DekiSdCard
-

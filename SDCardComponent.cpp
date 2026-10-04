@@ -55,7 +55,9 @@ void SDCardComponent::Setup(SetupCallback onComplete)
 bool SDCardComponent::Mount()
 {
     if (m_Mounted)
+    {
         return true;
+    }
 
     if (!s_SDCardPackage)
     {
@@ -130,7 +132,9 @@ bool SDCardComponent::Mount()
     // A build that keeps its assets on the card finds them now; one that keeps
     // them inside had them loaded at startup, and the card is just storage.
     if (Deki::ProjectSettings::GetAssetStorage() == Deki::Storage::External)
+    {
         Deki::AssetManager::Get()->LoadAssetRoot(Deki::Storage::AssetRoot(Deki::Storage::External));
+    }
 
     return true;
 }
@@ -138,7 +142,9 @@ bool SDCardComponent::Mount()
 void SDCardComponent::Unmount()
 {
     if (!m_Mounted)
+    {
         return;
+    }
 
     Deki::FileSystem::UnregisterFileSystem("S:/");
 

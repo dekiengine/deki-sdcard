@@ -11,10 +11,10 @@ namespace DekiSdCard
  */
 enum class SDCardState
 {
-    NotMounted,     // Card not mounted (may or may not be inserted)
-    Mounting,       // Mount operation in progress
-    Mounted,        // Card mounted and ready for file operations
-    Error           // Mount failed or card error
+    NotMounted,  // Card not mounted (may or may not be inserted)
+    Mounting,    // Mount operation in progress
+    Mounted,     // Card mounted and ready for file operations
+    Error        // Mount failed or card error
 };
 
 /**
@@ -22,9 +22,9 @@ enum class SDCardState
  */
 enum class SDCardMode : uint8_t
 {
-    SPI = 0,            // SPI mode (most compatible, uses MOSI/MISO/CLK/CS)
-    SDMMC_1BIT = 1,     // 1-bit SD mode (faster than SPI)
-    SDMMC_4BIT = 2      // 4-bit SD mode (fastest, uses more pins)
+    SPI = 0,         // SPI mode (most compatible, uses MOSI/MISO/CLK/CS)
+    SDMMC_1BIT = 1,  // 1-bit SD mode (faster than SPI)
+    SDMMC_4BIT = 2   // 4-bit SD mode (fastest, uses more pins)
 };
 
 /**
@@ -51,7 +51,11 @@ public:
     // ---- Storage Mode (USB Mass Storage) ----
 
     virtual bool SupportsStorageMode() const { return false; }
-    virtual bool SetStorageMode(bool enabled) { (void)enabled; return false; }
+    virtual bool SetStorageMode(bool enabled)
+    {
+        (void)enabled;
+        return false;
+    }
     virtual bool IsStorageMode() const { return false; }
 };
 
