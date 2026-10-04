@@ -74,14 +74,14 @@ bool SDCardComponent::Mount()
     config.enabled = true;
     config.settings["auto_mount"] = "false";
 
-    if (mode == SDCardMode::SDMMC_1BIT || mode == SDCardMode::SDMMC_4BIT)
+    if (mode == SDCardMode::SDMMC1Bit || mode == SDCardMode::SDMMC4Bit)
     {
-        config.settings["mode"] = (mode == SDCardMode::SDMMC_4BIT) ? "SDMMC_4BIT" : "SDMMC_1BIT";
+        config.settings["mode"] = (mode == SDCardMode::SDMMC4Bit) ? "SDMMC4Bit" : "SDMMC1Bit";
         config.settings["sdmmcHz"] = std::to_string(sdmmcHz);
         config.pins["CLK"] = clkPin;
         config.pins["CMD"] = cmdPin;
         config.pins["D0"] = d0Pin;
-        if (mode == SDCardMode::SDMMC_4BIT)
+        if (mode == SDCardMode::SDMMC4Bit)
         {
             config.pins["D1"] = d1Pin;
             config.pins["D2"] = d2Pin;

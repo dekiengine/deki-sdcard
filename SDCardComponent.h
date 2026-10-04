@@ -60,38 +60,38 @@ public:
     DEKI_RANGE(1, 40)
     int32_t spiHz = 20000000;
 
-    DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
+    DEKI_VISIBLE_WHEN(mode, SDMMC1Bit, SDMMC4Bit)
     DEKI_EXPORT
     DEKI_TOOLTIP("SDMMC clock speed. 20 MHz is a safe start; 40 MHz works on boards with short, well-matched traces.")
     DEKI_UNIT(Frequency)
     DEKI_RANGE(1, 40)
     int32_t sdmmcHz = 20000000;
 
-    DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
+    DEKI_VISIBLE_WHEN(mode, SDMMC1Bit, SDMMC4Bit)
     DEKI_EXPORT
     DEKI_TOOLTIP("SDMMC mode: the command line the board uses to talk to the card.")
     DEKI_RANGE(0, 48)
     int32_t cmdPin = 15;
 
-    DEKI_VISIBLE_WHEN(mode, SDMMC_1BIT, SDMMC_4BIT)
+    DEKI_VISIBLE_WHEN(mode, SDMMC1Bit, SDMMC4Bit)
     DEKI_EXPORT
     DEKI_TOOLTIP("SDMMC mode: data line 0. The only data line 1-bit mode uses.")
     DEKI_RANGE(0, 48)
     int32_t d0Pin = 2;
 
-    DEKI_VISIBLE_WHEN(mode, SDMMC_4BIT)
+    DEKI_VISIBLE_WHEN(mode, SDMMC4Bit)
     DEKI_EXPORT
     DEKI_TOOLTIP("SDMMC 4-bit mode: data line 1. Ignored in 1-bit mode.")
     DEKI_RANGE(0, 48)
     int32_t d1Pin = 4;
 
-    DEKI_VISIBLE_WHEN(mode, SDMMC_4BIT)
+    DEKI_VISIBLE_WHEN(mode, SDMMC4Bit)
     DEKI_EXPORT
     DEKI_TOOLTIP("SDMMC 4-bit mode: data line 2. Ignored in 1-bit mode.")
     DEKI_RANGE(0, 48)
     int32_t d2Pin = 12;
 
-    DEKI_VISIBLE_WHEN(mode, SDMMC_4BIT)
+    DEKI_VISIBLE_WHEN(mode, SDMMC4Bit)
     DEKI_EXPORT
     DEKI_TOOLTIP("SDMMC 4-bit mode: data line 3. Ignored in 1-bit mode.")
     DEKI_RANGE(0, 48)

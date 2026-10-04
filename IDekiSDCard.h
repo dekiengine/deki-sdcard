@@ -22,9 +22,9 @@ enum class SDCardState
  */
 enum class SDCardMode : uint8_t
 {
-    SPI = 0,         // SPI mode (most compatible, uses MOSI/MISO/CLK/CS)
-    SDMMC_1BIT = 1,  // 1-bit SD mode (faster than SPI)
-    SDMMC_4BIT = 2   // 4-bit SD mode (fastest, uses more pins)
+    SPI = 0,        // SPI mode (most compatible, uses MOSI/MISO/CLK/CS)
+    SDMMC1Bit = 1,  // 1-bit SD mode (faster than SPI)
+    SDMMC4Bit = 2   // 4-bit SD mode (fastest, uses more pins)
 };
 
 /**
