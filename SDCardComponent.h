@@ -18,7 +18,6 @@ namespace DekiSdCard
 /// prefix.
 DEKI_CATEGORY("System")
 DEKI_DESCRIPTION("Mounts an SD card at boot so assets can load from it.")
-DEKI_FORMER_NAME("SDCardComponent")
 class SDCardComponent : public Deki::SetupComponent
 {
 public:
