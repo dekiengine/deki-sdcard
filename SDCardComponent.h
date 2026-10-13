@@ -122,6 +122,8 @@ public:
 
 private:
     bool m_Mounted = false;
+    // The default file system before the card became it, put back on unmount.
+    Deki::IFileSystem* m_PreviousDefault = nullptr;
 };
 
 }  // namespace DekiSdCard

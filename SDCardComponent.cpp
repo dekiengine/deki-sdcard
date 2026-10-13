@@ -124,6 +124,7 @@ bool SDCardComponent::Mount()
     if (sdFs)
     {
         Deki::FileSystem::RegisterFileSystem("S:/", sdFs);
+        m_PreviousDefault = Deki::FileSystem::GetFileSystemForPath(nullptr);  // the default
         Deki::FileSystem::SetDefaultFileSystem(sdFs);
     }
 
@@ -148,6 +149,14 @@ void SDCardComponent::Unmount()
     }
 
     Deki::FileSystem::UnregisterFileSystem("S:/");
+
+    // Still the default, the card's file system would go on taking every
+    // path without a mount after it is shut down.
+    if (s_SDCardPackage && Deki::FileSystem::GetFileSystemForPath(nullptr) == s_SDCardPackage->GetFileSystem())
+    {
+        Deki::FileSystem::SetDefaultFileSystem(m_PreviousDefault);
+    }
+    m_PreviousDefault = nullptr;
 
     if (s_SDCardPackage)
     {
