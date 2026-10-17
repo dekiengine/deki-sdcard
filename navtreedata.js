@@ -25,15 +25,17 @@
 var NAVTREE =
 [
   [ "deki-sdcard", "index.html", [
-    [ "Components", "index.html#autotoc_md0", null ],
-    [ "Component reference", "index.html#autotoc_md1", [
+    [ "Components", "index.html#components", null ],
+    [ "Component reference", "index.html#component-reference", [
       [ "SDCardComponent", "index.html#c-sdcardcomponent", null ]
     ] ],
-    [ "Changelog", "index.html#autotoc_md2", [
-      [ "0.16.0", "index.html#autotoc_md3", null ],
+    [ "Changelog", "index.html#changelog", [
+      [ "0.19.0", "index.html#autotoc_md0", null ],
+      [ "Changed", "index.html#autotoc_md1", null ],
+      [ "Added", "index.html#autotoc_md2", null ],
+      [ "0.18.0", "index.html#autotoc_md3", null ],
       [ "Changed", "index.html#autotoc_md4", null ],
-      [ "0.15.0", "index.html#autotoc_md5", null ],
-      [ "Changed", "index.html#autotoc_md6", null ]
+      [ "Removed", "index.html#autotoc_md5", null ]
     ] ]
   ] ]
 ];
