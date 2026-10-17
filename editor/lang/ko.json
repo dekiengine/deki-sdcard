@@ -30,5 +30,7 @@
     "SPI mode: chip select. Held low while this card is being talked to, which is what lets other devices share the bus.": "SPI 모드: 칩 셀렉트입니다. 이 카드와 통신하는 동안 Low로 유지되며, 덕분에 다른 장치와 버스를 공유할 수 있습니다.",
     "SPI mode: GPIO the board receives on, wired to the card's DO or DAT0 pad.": "SPI 모드: 보드가 수신에 쓰는 GPIO로, 카드의 DO 또는 DAT0 패드에 연결합니다.",
     "SPI mode: GPIO the board sends on, wired to the card's DI or CMD pad.": "SPI 모드: 보드가 송신에 쓰는 GPIO로, 카드의 DI 또는 CMD 패드에 연결합니다.",
-    "Stop the boot when no card mounts. Off, the boot carries on without one: the screen and controls come up, and the game's assets, which live on the card, do not. For a handheld with a card slot on the side.": "카드를 마운트하지 못하면 부팅을 멈춥니다. 끄면 카드 없이 부팅을 계속합니다. 화면과 조작은 사용할 수 있지만, 카드에 있는 게임 에셋은 로드되지 않습니다. 측면에 카드 슬롯이 있는 휴대용 기기용입니다."
+    "Stop the boot when no card mounts. Off, the boot carries on without one: the screen and controls come up, and the game's assets, which live on the card, do not. For a handheld with a card slot on the side.": "카드를 마운트하지 못하면 부팅을 멈춥니다. 끄면 카드 없이 부팅을 계속합니다. 화면과 조작은 사용할 수 있지만, 카드에 있는 게임 에셋은 로드되지 않습니다. 측면에 카드 슬롯이 있는 휴대용 기기용입니다.",
+    "Mounts an SD card at boot so assets can load from it.": "부팅 시 SD 카드를 마운트하여 카드에서 에셋을 로드할 수 있게 합니다.",
+    "System": "시스템"
 }
